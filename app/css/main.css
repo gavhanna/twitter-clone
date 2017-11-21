@@ -450,6 +450,26 @@ footer {
 .card {
   margin: 20px 0;
 }
+
+#add-post {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  background: pink;
+  margin: 0;
+  padding: 0;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+#add-post > span {
+  margin: -5px auto 0 auto;
+  font-size: 3rem;
+  color: #333;
+}
  
 
  /*# sourceMappingURL= main.css.map */

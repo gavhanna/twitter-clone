@@ -4,11 +4,15 @@
   const messageInput = document.getElementById('message-input');
   const submitButton = document.getElementById('message-submit');
   const cardArray = [];
+  const signOutButton = document.getElementById('sign-out');
+  const usernameDisplay = document.getElementById('username');
+  let currentUser;
+  let userDisplayName;
 
   const db = firebase.database();
 
   submitButton.addEventListener('click', onSubmit);
-
+  signOutButton.addEventListener('click', signOut);
 
   class PostManager {
     constructor() {
@@ -35,7 +39,7 @@
       }
     }
 
-    getPosts() {
+    get getPosts() {
       return this.posts;
     }
   }
@@ -43,14 +47,32 @@
   const Posts = new PostManager();
 
   function onSubmit() {
-    if (nameInput.value !== '' && messageInput.value !== '') {
-      Posts.addPost({name: nameInput.value, content: messageInput.value});
+    if (messageInput.value !== '') {
+      Posts.addPost(
+        {
+          name: userDisplayName, 
+          content: messageInput.value,
+          user_id: currentUser.uid,
+          posted_at: new Date().toString()
+        }
+      );
       Posts.renderPosts();
       writeData(Posts.posts);
     } else {
       console.log('Empty field(s), doing nothing.');
-      return;
     }
+    messageInput.value = '';
+    return;
+  }
+
+  function signOut() {
+    firebase.auth().signOut().then(function() {
+      console.log('Logged out.');
+      window.location.href="/app/";
+    }).catch(function(error) {
+      console.log('Error logging out:', error);
+      
+    });
   }
 
   function writeData(posts) {
@@ -70,6 +92,16 @@
 
   getData();
   
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      currentUser = user;
+      userDisplayName = user.displayName;
+      usernameDisplay.innerText = user.displayName;
+      console.log(currentUser);
+    } else {
+      console.log('No user logged in.');
+    }
+  });
 
-
+  
 })();
