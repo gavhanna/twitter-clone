@@ -8,7 +8,7 @@ $text-color: white;
 $text-highlight: #000;
 
 body {
-  color: $text-color;
+  color: #333;
   background: #e6ecf0;
 }
 
@@ -115,4 +115,43 @@ nav {
   > #submit-button {
     width: 80px;
   }
+}
+
+.hero {
+  height: 150px;
+  width: 95vw;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .hero-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 50%;
+    color: white;
+    background: $main-color;
+  }
+  .hero-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 50%;
+    background: white;
+    color: #333;
+  }
+}
+
+#profile-wrapper  {
+  margin-top: 50px;
+
+}
+
+.post {
+  margin: 10px auto;
+}
+.post-block {
+  margin: 0 auto;
 }

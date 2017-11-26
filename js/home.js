@@ -59,7 +59,7 @@ function onSubmit() {
 function signOut() {
   firebase.auth().signOut().then(function() {
     console.log('Logged out.');
-    window.location.href="/app/";
+    window.location.href="/";
   }).catch(function(error) {
     console.log('Error logging out:', error);
   });
@@ -74,7 +74,6 @@ function getData() {
   return db.ref('/posts/').once('value')
     .then(function(snapshot) {
       console.log(snapshot.val());
-      
       snapshot.val().forEach(post => {
         postArray.push(post);
       });
