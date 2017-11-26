@@ -4,12 +4,16 @@ const postHolder = document.getElementById('post-holder');
 const submitButton = document.getElementById('submit-button');
 const postContent = document.getElementById('post-content');
 const logoutButton = document.getElementById('log-out');
+const form = document.getElementById('form');
 const db = firebase.database();
 const Posts = new PostManager();
 let currentUser;
 
 submitButton.addEventListener('click', onSubmit);
 logoutButton.addEventListener('click', signOut);
+postContent.addEventListener('focus', focused);
+postContent.addEventListener('blur', unfocused);
+
 
 function PostManager() {
   this.posts = [];
@@ -50,7 +54,11 @@ function onSubmit() {
       Posts.renderPosts();
     });
   } else {
+    postContent.placeholder = `${currentUser.displayName.split(' ')[0]}, you didn't blab about anything...`;
     console.log('Empty field(s), doing nothing.');
+    setTimeout(() => {
+      postContent.focus();
+    }, 100);
   }
   postContent.value = '';
   return;
@@ -93,6 +101,23 @@ function getUserPosts(uid) {
       snap.val().forEach(el => {if (el) {count++}})
       userPostCountDisplay.innerText = count;
     });
+  }
+
+  function focused(e) {
+    console.log('Focused on textarea!');
+    submitButton.style.display = 'block';
+    // submitButton.classList.add('shown');
+  }
+
+  function unfocused(e) {
+    console.log('Not focused!');
+    postContent.placeholder = `Blab about something...`;
+    // submitButton.classList.remove('shown');
+    setTimeout(() => {
+      console.log('BOOM');
+      submitButton.style.display = 'none';
+      
+    }, 100);
   }
 
 

@@ -12,10 +12,11 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   <!-- Custom -->
   <link rel="stylesheet" href="css/main.css">
+  <!-- FontAwesome -->
+  <!-- <script src="https://use.fontawesome.com/712f80daf2.js"></script> -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-  <!-- FontAwesome -->
-  <script src="https://use.fontawesome.com/712f80daf2.js"></script>
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
   <script>
@@ -34,22 +35,23 @@
   <nav>
     <div id="nav-wrapper">
       <div class="title">
-        <span>Blabbr</span>
+        <span>Blabbr <i class="fa fa-comment" aria-hidden="true"></i></span>
       </div>
       <div class="nav-items">
         <div class="nav-item">
-          <a href="/app/home.html">Home</a>
+          <a href="/app/home.html"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
         </div>
         <div class="nav-item">
-          <a href="/profile.html">Profile</a>
+          <a href="/profile.html">
+            <i class="fa fa-user-circle-o" aria-hidden="true"></i> Profile</a>
         </div>
         <div class="nav-item">
-          <a id="log-out">Log Out</a>
+          <a id="log-out"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</a>
         </div>
       </div>
     </div>
   </nav>
-
+  
 
   <div id="wrapper">
     <div class="left-panel">
@@ -73,8 +75,10 @@
           <form id="form">
             <textarea 
               name="post-content" 
-              id="post-content"></textarea>
-            <button type="button" id="submit-button">Submit</button>
+              id="post-content"
+              maxlength="200"
+              placeholder="Blab about something..."></textarea>
+            <button type="button" id="submit-button">Submit <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
           </form>
         </div>
         <div class="messages" id="post-holder">
