@@ -6,6 +6,7 @@
  * 2. Prevent adjustments of font size after orientation changes in
  *    IE on Windows Phone and in iOS.
  */
+@import url("https://fonts.googleapis.com/css?family=Kite+One|Roboto");
 html {
   line-height: 1.15;
   /* 1 */
@@ -432,43 +433,123 @@ template {
   display: none;
 }
 
-#wrapper {
+body {
+  color: white;
+  background: #e6ecf0;
+}
+
+.display-font {
+  font-family: "Kite One";
+}
+
+.text-font {
+  font-family: "Roboto";
+}
+
+a {
+  color: white;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+#index-wrapper {
+  font-family: "Roboto";
+  text-align: center;
+  color: white;
+  background: #447c92;
   min-height: 100vh;
+  min-width: 100vw;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+
+nav {
+  background: #447c92;
+}
+
+#nav-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  height: 50px;
+  display: flex;
   justify-content: space-between;
 }
 
-footer {
-  height: 100px;
-  background: skyblue;
+#nav-wrapper > div {
+  padding: 10px;
+}
+
+.nav-items {
+  display: flex;
+}
+
+.nav-items .nav-item {
+  margin: 0 10px;
+}
+
+#wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 20px;
+  min-height: 100vh;
+  color: black;
+  display: flex;
+  justify-content: space-around;
+}
+
+#wrapper .left-panel {
+  width: 200px;
+}
+
+#wrapper .right-panel {
+  width: 65%;
+}
+
+.user-card {
+  height: 150px;
+  text-align: center;
+  border: 1px solid #999;
+}
+
+.user-card .top-half {
+  background: #447c92;
+  color: white;
+  height: 40%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
-.card {
-  margin: 20px 0;
+.user-card .bottom-half {
+  background: white;
+  height: 60%;
 }
 
-#add-post {
+.post-block {
+  background: white;
+  border: 1px solid #999;
+  padding: 10px;
+  margin: 10px 0;
+  max-width: 500px;
+}
+
+#form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  position: absolute;
-  right: 0;
-  background: pink;
-  margin: 0;
-  padding: 0;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
 }
 
-#add-post > span {
-  margin: -5px auto 0 auto;
-  font-size: 3rem;
-  color: #333;
+#form > textarea {
+  width: 100%;
+  max-width: 500px;
+}
+
+#form > #submit-button {
+  width: 80px;
 }
  
 

@@ -1,11 +1,4 @@
-(function(){
-  const cardHolder = document.getElementById('card-holder');
-  const nameInput = document.getElementById('name-input');
-  const messageInput = document.getElementById('message-input');
-  const submitButton = document.getElementById('message-submit');
-  const cardArray = [];
-  const signOutButton = document.getElementById('sign-out');
-  const usernameDisplay = document.getElementById('username');
+
   let currentUser;
   let userDisplayName;
 
@@ -13,6 +6,7 @@
 
   submitButton.addEventListener('click', onSubmit);
   signOutButton.addEventListener('click', signOut);
+  linkToProfile.addEventListener('click', navigateToProfile);
 
   class PostManager {
     constructor() {
@@ -31,8 +25,9 @@
         card.className += 'card';
         card.innerHTML = `
           <div class="card-block">
-            <h4 class="card-title">${post.name}</h4>
+            <h5 class="card-title">${post.name}</h5>
             <p class="card-text">${post.content}</p>
+            <span class="small">${post.posted_at.slice(0, 21)}</span>
           </div>
         `
         cardHolder.appendChild(card);
@@ -44,7 +39,7 @@
     }
   }
 
-  const Posts = new PostManager();
+  
 
   function onSubmit() {
     if (messageInput.value !== '') {
@@ -80,6 +75,7 @@
   }
 
   function getData() {
+    const Posts = new PostManager();
     db.ref('/posts/').once('value')
       .then(function(snapshot) {
         snapshot.val().forEach(post => {
@@ -90,18 +86,61 @@
       })
   }
 
-  getData();
+  function getUserPosts(uid) {
+    const UserPosts = new PostManager();
+    
+    if (!uid) {
+      var uid = firebase.auth().currentUser.uid;
+    }
+    db.ref('/posts/')
+      .orderByChild('user_id')
+      .equalTo(uid)
+      .on('value', snap => {
+        snap.val().forEach(post => {
+          UserPosts.addPost(post);
+        });
+      }).then(() => {
+        UserPosts.renderPosts();
+      })
+    }
+
   
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       currentUser = user;
       userDisplayName = user.displayName;
       usernameDisplay.innerText = user.displayName;
-      console.log(currentUser);
+      console.log(userDisplayName);
     } else {
       console.log('No user logged in.');
     }
   });
-
   
-})();
+  
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+  
+  function navigateToProfile(e) {
+    window.location.href = `/app/profile.html?user=${currentUser.uid}`;
+  }
+  
+  
+  
+  setTimeout(() => {
+    getUserPosts(currentUser.uid);
+    console.log('OK TIMER DONE');
+    
+  }, 2000);
+  
+  
+  
+  
+  getData();
+  getUserPosts();
