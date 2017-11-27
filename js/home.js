@@ -79,9 +79,8 @@ function writeData(posts) {
 
 function getData() {
   const postArray = [];
-  return db.ref('/posts/').once('value')
+  return db.ref('/posts/').orderByChild('post_at').once('value')
     .then(function(snapshot) {
-      console.log(snapshot.val());
       snapshot.val().forEach(post => {
         postArray.push(post);
       });
@@ -89,30 +88,14 @@ function getData() {
     })
 }
 
-function getUserPosts(uid) {
-  if (!uid) {
-    var uid = firebase.auth().currentUser.uid;
-  }
-  db.ref('/posts/')
-    .orderByChild('user_id')
-    .equalTo(uid)
-    .on('value', snap => {
-      let count = 0;
-      snap.val().forEach(el => {if (el) {count++}})
-      userPostCountDisplay.innerText = count;
-    });
-  }
-
   function focused(e) {
     console.log('Focused on textarea!');
     submitButton.style.display = 'block';
-    // submitButton.classList.add('shown');
   }
 
   function unfocused(e) {
     console.log('Not focused!');
     postContent.placeholder = `Blab about something...`;
-    // submitButton.classList.remove('shown');
     setTimeout(() => {
       console.log('BOOM');
       submitButton.style.display = 'none';
@@ -126,17 +109,22 @@ firebase.auth().onAuthStateChanged(function(user) {
     currentUser = user;
     userDisplayName = user.displayName;
     cardUsernameDisplay.innerText = user.displayName;
-    getUserPosts(firebase.auth().currentUser.uid);
   } else {
     console.log('No user logged in.');
   }
 });
 
 
-getData().then(posts => 
+getData().then(posts => {
+  let userPostCount = 0;
   posts.forEach(post => {
     Posts.addPost(post);
+    if (post.user_id === currentUser.uid) {
+      userPostCount++;
+    }
+    userPostCountDisplay.innerText = userPostCount;
   })
+}
 ).then(() => {
   Posts.renderPosts();
 });
