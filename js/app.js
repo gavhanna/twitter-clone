@@ -1,3 +1,10 @@
+const navButton = document.getElementById('nav-button');
+const nav = document.querySelector('.nav-items');
+const closeNav = document.getElementById('close-nav-area');
+
+closeNav.addEventListener('click', navOpen);
+navButton.addEventListener('click', navOpen);
+
 function PostManager() {
   this.posts = [];
 
@@ -21,4 +28,11 @@ function PostManager() {
       postHolder.appendChild(postEl);
     }
   }
+}
+
+
+function navOpen() {
+  nav.classList.toggle('open');
+  navButton.classList.toggle('nav-btn-open');
+  closeNav.classList.toggle('close-open');
 }
