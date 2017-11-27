@@ -636,6 +636,12 @@ nav {
   max-width: 95vw;
 }
 
+@media screen and (max-width: 800px) {
+  .post-block {
+    width: 100%;
+  }
+}
+
 .nav-button {
   display: none;
 }
@@ -681,6 +687,9 @@ nav {
   }
   .nav-button.nav-btn-open {
     transform: translateX(-50vw);
+  }
+  .post-block {
+    width: 100%;
   }
 }
  

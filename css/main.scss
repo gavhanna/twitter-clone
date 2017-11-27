@@ -206,6 +206,9 @@ nav {
   margin: 0 auto;
   width: 500px;
   max-width: 95vw;
+  @media screen and (max-width: 800px) {
+    width: 100%;
+  }
 }
 
 .nav-button {
@@ -254,5 +257,9 @@ nav {
     &.nav-btn-open {
       transform: translateX(-50vw);
     }
+  }
+
+  .post-block {
+    width: 100%;
   }
 } 
