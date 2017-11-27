@@ -457,13 +457,14 @@ textarea {
   font-family: "Roboto";
 }
 
-a {
+a, .link-item {
   color: white;
   cursor: pointer;
+  transition: all .2s ease-in-out;
 }
 
-a:hover {
-  color: #000;
+a:hover, .link-item:hover {
+  color: #ccc;
   text-decoration: none;
 }
 

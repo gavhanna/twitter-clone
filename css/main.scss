@@ -5,7 +5,7 @@ $main-color: rgb(68, 124, 146);
 $display-font: 'Kite One';
 $text-font: 'Roboto';
 $text-color: white;
-$text-highlight: #000;
+$text-highlight: #ccc;
 $background-color: #e6ecf0;
 
 body {
@@ -33,9 +33,10 @@ textarea {
   font-family: $text-font; 
 }
 
-a {
+a, .link-item {
   color: white;
   cursor: pointer;
+  transition: all .2s ease-in-out;
   &:hover {
     color: $text-highlight;
     text-decoration: none;
