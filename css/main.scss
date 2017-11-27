@@ -127,6 +127,10 @@ nav {
   max-width: 500px;
 }
 
+.post-title > a {
+  color: #333;
+}
+
 #form {
   display: flex;
   flex-direction: column;

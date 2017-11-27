@@ -6,6 +6,16 @@ const Posts = new PostManager();
 
 
 
+function getParameterByName(name, url) {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 function getUserPosts(uid) {
   if (!uid) {
     var uid = firebase.auth().currentUser.uid;
@@ -19,6 +29,9 @@ function getUserPosts(uid) {
         if (el) {
           Posts.addPost(el);
           count++;
+          if (getParameterByName('user')) {
+            usernameDisplay.innerText = el.name;
+          }
         }
       })
       userPostCountDisplay.innerText = 'Posts: ' + count;  
@@ -28,8 +41,14 @@ function getUserPosts(uid) {
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-    getUserPosts(firebase.auth().currentUser.uid);
-    usernameDisplay.innerText = firebase.auth().currentUser.displayName;
+    if (getParameterByName('user')) {
+      getUserPosts(getParameterByName('user'));
+      console.log('It got to here!');
+      
+    } else {
+      getUserPosts(firebase.auth().currentUser.uid);
+      usernameDisplay.innerText = firebase.auth().currentUser.displayName;
+    }
   } else {
     console.log('No user logged in.');
   }

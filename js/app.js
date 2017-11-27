@@ -20,7 +20,7 @@ function PostManager() {
       postEl.className += 'post';
       postEl.innerHTML = `
         <div class="post-block">
-          <h5 class="post-title">${post.name}</h5>
+          <h5 class="post-title"><a href="profile.html?user=${post.user_id}">${post.name}</a></h5>
           <p class="post-text">${post.content}</p>
           <span class="small">${new Date(post.posted_at) == 'Invalid Date' ? new Date() : new Date(post.posted_at) }</span>
         </div>
