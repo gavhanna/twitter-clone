@@ -20,31 +20,45 @@ function getUserPosts(uid) {
   if (!uid) {
     var uid = firebase.auth().currentUser.uid;
   }
-  db.ref('/posts/')
-    .orderByChild('user_id')
-    .equalTo(uid)
-    .on('value', snap => {
-      let count = 0;
-      snap.val().forEach(el => {
-        if (el) {
-          Posts.addPost(el);
-          count++;
-          if (getParameterByName('user')) {
-            usernameDisplay.innerText = el.name;
-          }
-        }
-      })
-      userPostCountDisplay.innerText = 'Posts: ' + count;  
-      Posts.renderPosts();
+  // db.ref('/posts/')
+  //   .orderByChild('user_id')
+  //   .equalTo(uid)
+  //   .on('value', snap => {
+  //     let count = 0; 
+  //     snap.val().forEach(el => {
+  //       if (el) {
+  //         Posts.addPost(el);
+  //         count++;
+  //         if (getParameterByName('user')) {
+  //           usernameDisplay.innerText = el.name;
+  //         }
+  //       }
+  //     })
+  //     userPostCountDisplay.innerText = 'Posts: ' + count;  
+  //     Posts.renderPosts();
+  //   });
+  const postArray = [];
+  db.ref('/posts/').once('value')
+  .then(function(snapshot) {
+    console.log(snapshot.val());
+    snapshot.val().forEach(post => {
+      if (post.user_id === uid) {
+        postArray.push(post);
+        Posts.addPost(post);
+        usernameDisplay.innerText = post.name;
+      }
     });
+    Posts.renderPosts();
+    userPostCountDisplay.innerText = 'Posts: ' + postArray.length; 
+    return postArray;
+  })
 }
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     if (getParameterByName('user')) {
       getUserPosts(getParameterByName('user'));
-      console.log('It got to here!');
-      
+
     } else {
       getUserPosts(firebase.auth().currentUser.uid);
       usernameDisplay.innerText = firebase.auth().currentUser.displayName;
