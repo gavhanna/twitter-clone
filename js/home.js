@@ -27,9 +27,12 @@ function onSubmit() {
       user_profile_url: userProfileLink
     }
 
-    Posts.addPost(newPost);
-    writeData(newPost).then(() => {
-      Posts.renderPosts();
+    writeData(newPost).then((data) => {
+      console.log(data);
+      
+      const newEl = Posts.createPostElement(newPost, data.key);
+      postHolder.prepend(newEl);
+      applyListeners();
     });
   } else {
     postContent.placeholder = `${currentUser.displayName.split(' ')[0]}, you didn't blab about anything...`;
@@ -56,29 +59,40 @@ function writeData(post) {
 }
 
 function getData() {
+  console.log('GETDATA CALLED');
+  
   const postArray = [];
   return db.ref('/posts').orderByChild('post_at').once('value')
     .then(function(snapshot) {
       snapshot.forEach(el => {
         const post = el.val();
+        post.post_id = el.key;
         postArray.push(post);
       });
       return postArray;
-    })
+    }).then(posts => {
+      let userPostCount = 0;
+      posts.forEach(post => {
+        Posts.addPost(post);
+        if (post.user_id === currentUser.uid) {
+          userPostCount++;
+        }
+        userPostCountDisplay.innerText = userPostCount;
+      })
+    }
+    ).then(() => {
+      Posts.renderPosts();
+    });
 }
 
   function focused(e) {
-    console.log('Focused on textarea!');
     submitButton.style.display = 'block';
   }
 
   function unfocused(e) {
-    console.log('Not focused!');
     postContent.placeholder = `Blab about something...`;
     setTimeout(() => {
-      console.log('BOOM');
-      submitButton.style.display = 'none';
-      
+      submitButton.style.display = 'none';      
     }, 100);
   }
 
@@ -95,19 +109,20 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 
-getData().then(posts => {
-  let userPostCount = 0;
-  posts.forEach(post => {
-    Posts.addPost(post);
-    if (post.user_id === currentUser.uid) {
-      userPostCount++;
-    }
-    userPostCountDisplay.innerText = userPostCount;
-  })
-}
-).then(() => {
-  Posts.renderPosts();
-});
+getData();
+// .then(posts => {
+//   let userPostCount = 0;
+//   posts.forEach(post => {
+//     Posts.addPost(post);
+//     if (post.user_id === currentUser.uid) {
+//       userPostCount++;
+//     }
+//     userPostCountDisplay.innerText = userPostCount;
+//   })
+// }
+// ).then(() => {
+//   Posts.renderPosts();
+// });
 
 
 

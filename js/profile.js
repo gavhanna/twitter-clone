@@ -14,7 +14,6 @@ let isUserProfilePage;
 
 uploadField.addEventListener('change', uploadProfilePic);
 
-
 function uploadProfilePic(e) {
   const file = this.files[0];
   const user = firebase.auth().currentUser;
