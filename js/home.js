@@ -18,6 +18,7 @@ postContent.addEventListener('blur', unfocused);
 
 function onSubmit() {
   if (postContent.value !== '') {
+    userPostCountDisplay.innerText = +userPostCountDisplay.innerText + 1;
     const newPost = {
       name: userDisplayName, 
       content: postContent.value,
