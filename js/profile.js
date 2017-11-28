@@ -10,6 +10,8 @@ const profilePic = document.getElementById('profile-pic');
 const progressBar = document.getElementById('progress-bar');
 const uploadField = document.getElementById('file');
 
+let isUserProfilePage;
+
 uploadField.addEventListener('change', uploadProfilePic);
 
 
@@ -82,13 +84,17 @@ firebase.auth().onAuthStateChanged(function(user) {
     if (getParameterByName('user')) {
       getUserPosts(getParameterByName('user'));
       getProfilePic(getParameterByName('user'), profilePic);
+      isUserProfilePage = false;
     } else {
       getUserPosts(firebase.auth().currentUser.uid);
       getProfilePic(firebase.auth().currentUser.uid, profilePic);
       usernameDisplay.innerText = firebase.auth().currentUser.displayName;
+      isUserProfilePage = true;
     }
   } else {
     console.log('No user logged in.');
   }
+  console.log(isUserProfilePage);
+  
 });
 
