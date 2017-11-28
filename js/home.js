@@ -15,42 +15,18 @@ postContent.addEventListener('focus', focused);
 postContent.addEventListener('blur', unfocused);
 
 
-// function PostManager() {
-//   this.posts = [];
-
-//   this.addPost = function(post) {
-//     this.posts.push(post);
-//   }
-
-//   this.renderPosts = function() {
-//     postHolder.innerHTML = '';
-//     const reversePosts = this.posts.reverse();
-//     for (const post of reversePosts) {
-//       const postEl = document.createElement('div');
-//       postEl.className += 'post';
-//       postEl.innerHTML = `
-//         <div class="post-block">
-//           <h5 class="post-title">${post.name}</h5>
-//           <p class="post-text">${post.content}</p>
-//           <span class="small">${new Date(post.posted_at) == 'Invalid Date' ? new Date() : new Date(post.posted_at) }</span>
-//         </div>
-//       `
-//       postHolder.appendChild(postEl);
-//     }
-//   }
-// }
 
 function onSubmit() {
   if (postContent.value !== '') {
-    Posts.addPost(
-      {
-        name: userDisplayName, 
-        content: postContent.value,
-        user_id: currentUser.uid,
-        posted_at: firebase.database.ServerValue.TIMESTAMP
-      }
-    );
-    writeData(Posts.posts).then(() => {
+    const newPost = {
+      name: userDisplayName, 
+      content: postContent.value,
+      user_id: currentUser.uid,
+      posted_at: firebase.database.ServerValue.TIMESTAMP
+    }
+
+    Posts.addPost(newPost);
+    writeData(newPost).then(() => {
       Posts.renderPosts();
     });
   } else {
@@ -73,15 +49,16 @@ function signOut() {
   });
 }
 
-function writeData(posts) {
-  return db.ref('posts').set(posts);
+function writeData(post) {
+  return db.ref('posts').push(post);
 }
 
 function getData() {
   const postArray = [];
-  return db.ref('/posts/').orderByChild('post_at').once('value')
+  return db.ref('/posts').orderByChild('post_at').once('value')
     .then(function(snapshot) {
-      snapshot.val().forEach(post => {
+      snapshot.forEach(el => {
+        const post = el.val();
         postArray.push(post);
       });
       return postArray;

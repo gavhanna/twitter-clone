@@ -20,28 +20,11 @@ function getUserPosts(uid) {
   if (!uid) {
     var uid = firebase.auth().currentUser.uid;
   }
-  // db.ref('/posts/')
-  //   .orderByChild('user_id')
-  //   .equalTo(uid)
-  //   .on('value', snap => {
-  //     let count = 0; 
-  //     snap.val().forEach(el => {
-  //       if (el) {
-  //         Posts.addPost(el);
-  //         count++;
-  //         if (getParameterByName('user')) {
-  //           usernameDisplay.innerText = el.name;
-  //         }
-  //       }
-  //     })
-  //     userPostCountDisplay.innerText = 'Posts: ' + count;  
-  //     Posts.renderPosts();
-  //   });
   const postArray = [];
   db.ref('/posts/').once('value')
   .then(function(snapshot) {
-    console.log(snapshot.val());
-    snapshot.val().forEach(post => {
+    snapshot.forEach(el => {
+      const post = el.val();
       if (post.user_id === uid) {
         postArray.push(post);
         Posts.addPost(post);
@@ -58,7 +41,6 @@ firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     if (getParameterByName('user')) {
       getUserPosts(getParameterByName('user'));
-
     } else {
       getUserPosts(firebase.auth().currentUser.uid);
       usernameDisplay.innerText = firebase.auth().currentUser.displayName;
