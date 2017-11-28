@@ -556,6 +556,21 @@ nav {
   padding: 10px;
   margin: 10px 0;
   max-width: 500px;
+  display: flex;
+}
+
+.post-block .post-left {
+  min-width: 80px;
+}
+
+.post-block .post-right {
+  width: 100%;
+}
+
+.post-profile {
+  width: 60px;
+  height: auto;
+  border-radius: 50%;
 }
 
 .post-title > a {
@@ -612,18 +627,49 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  height: 50%;
+  height: 70%;
   color: white;
   background: #447c92;
+  position: relative;
 }
 
 .hero .hero-bottom {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  height: 50%;
+  height: 30%;
   background: white;
   color: #333;
+}
+
+.upload-profile-pic {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.progress-bar {
+  position: absolute;
+  display: none;
+  bottom: 0;
+  left: 0;
+}
+
+.progress-bar.bar-visible {
+  display: block;
+}
+
+.profile-pic-wrapper {
+  width: 100px;
+  top: 25px;
+  margin: 0 auto;
+}
+
+#profile-pic {
+  width: 100%;
+  height: auto;
+  border: 2px solid white;
+  border-radius: 50%;
 }
 
 #profile-wrapper {
@@ -695,6 +741,34 @@ nav {
   .post-block {
     width: 100%;
   }
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  color: white;
+  background-color: #447c92;
+  display: inline-block;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  padding: 10px;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: skyblue;
+}
+
+.inputfile:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
 }
  
 
