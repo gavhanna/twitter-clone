@@ -711,7 +711,11 @@ nav {
 }
 
 @media screen and (max-width: 500px) {
+  body {
+    overflow-x: hidden;
+  }
   .nav-items {
+    display: none;
     flex-direction: column;
     background: #447c92;
     height: 100vh;
@@ -724,6 +728,7 @@ nav {
     padding: 10px 10px;
   }
   .nav-items.open {
+    display: block;
     transform: translateX(0px);
   }
   .nav-button {
@@ -738,6 +743,9 @@ nav {
   }
   .nav-button.nav-btn-open {
     transform: translateX(-50vw);
+  }
+  #wrapper .right-panel {
+    width: 95%;
   }
   .post-block {
     width: 100%;
