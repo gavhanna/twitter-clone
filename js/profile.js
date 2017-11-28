@@ -79,11 +79,12 @@ function getUserPosts(uid) {
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     currentUser = user;
-    getProfilePic(currentUser.uid, profilePic);
     if (getParameterByName('user')) {
       getUserPosts(getParameterByName('user'));
+      getProfilePic(getParameterByName('user'), profilePic);
     } else {
       getUserPosts(firebase.auth().currentUser.uid);
+      getProfilePic(firebase.auth().currentUser.uid, profilePic);
       usernameDisplay.innerText = firebase.auth().currentUser.displayName;
     }
   } else {

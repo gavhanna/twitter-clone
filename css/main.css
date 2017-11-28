@@ -560,7 +560,7 @@ nav {
 }
 
 .post-block .post-left {
-  min-width: 80px;
+  width: 80px;
 }
 
 .post-block .post-right {
@@ -570,7 +570,7 @@ nav {
 .post-profile {
   width: 60px;
   height: auto;
-  border-radius: 50%;
+  border-radius: 3px;
 }
 
 .post-title > a {
@@ -660,16 +660,17 @@ nav {
 }
 
 .profile-pic-wrapper {
-  width: 100px;
+  width: 110px;
+  height: 110px;
   top: 25px;
   margin: 0 auto;
 }
 
 #profile-pic {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100%;
   border: 2px solid white;
-  border-radius: 50%;
+  border-radius: 3px;
 }
 
 #profile-wrapper {

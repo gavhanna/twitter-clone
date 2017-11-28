@@ -23,7 +23,9 @@ function PostManager() {
       postEl.innerHTML = `
         <div class="post-block">
           <div class="post-left">
-          <img src="${post.user_profile_url}" class="post-profile">
+            <a href="profile.html?user=${post.user_id}">
+              <img src="${post.user_profile_url}" class="post-profile">
+            </a>
           </div>
           <div class="post-right">
             <h5 class="post-title"><a href="profile.html?user=${post.user_id}">${post.name}</a></h5>
