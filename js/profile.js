@@ -3,8 +3,9 @@ const userPostCountDisplay = document.getElementById('user-post-count')
 const postHolder = document.getElementById('post-holder');
 const db = firebase.database();
 const Posts = new PostManager();
-let thisUser;
+let currentUser;
 
+const profilePic = document.getElementById('profile-pic');
 const progressBar = document.getElementById('progress-bar');
 const submitUploadButton = document.getElementById('submit-upload')
 const uploadField = document.getElementById('upload');
@@ -16,7 +17,7 @@ submitUploadButton.addEventListener('click', uploadProfilePic);
 function uploadProfilePic(e) {
   const file = this.files[0];
   const user = firebase.auth().currentUser;
-  const storageRef = firebase.storage().ref(thisUser.uid + '/profilePicture/' + file.name);
+  const storageRef = firebase.storage().ref(currentUser.uid + '/profilePicture/profile');
   const task = storageRef.put(file);
 
   task.on('state_changed',
@@ -34,9 +35,7 @@ function uploadProfilePic(e) {
   )
 }
 
-function getProfilePic(user) {
 
-}
 
 function getParameterByName(name, url) {
   if (!url) url = window.location.href;
@@ -71,7 +70,8 @@ function getUserPosts(uid) {
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-    thisUser = user;
+    currentUser = user;
+    getProfilePic(currentUser.uid, profilePic);
     if (getParameterByName('user')) {
       getUserPosts(getParameterByName('user'));
     } else {

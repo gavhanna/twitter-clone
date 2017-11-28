@@ -22,7 +22,8 @@ function onSubmit() {
       name: userDisplayName, 
       content: postContent.value,
       user_id: currentUser.uid,
-      posted_at: firebase.database.ServerValue.TIMESTAMP
+      posted_at: firebase.database.ServerValue.TIMESTAMP,
+      user_profile_url: userProfileLink
     }
 
     Posts.addPost(newPost);
@@ -86,6 +87,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     currentUser = user;
     userDisplayName = user.displayName;
     cardUsernameDisplay.innerText = user.displayName;
+    getProfilePic(user.uid);
   } else {
     console.log('No user logged in.');
   }

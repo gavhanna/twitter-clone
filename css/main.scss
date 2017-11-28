@@ -125,6 +125,21 @@ nav {
   padding: 10px;
   margin: 10px 0;
   max-width: 500px;
+  display: flex;
+  .post-left {
+    min-width: 80px;
+    //background: blue;
+  }
+  .post-right {
+    //background: red;
+    width: 100%;
+  }
+}
+
+.post-profile {
+  width: 60px;
+  height: auto;
+  border-radius: 50%;
 }
 
 .post-title > a {
@@ -184,18 +199,32 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    height: 50%;
+    height: 70%;
     color: white;
     background: $main-color;
+    position: relative;
   }
   .hero-bottom {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 50%;
+    height: 30%;
     background: white;
     color: #333;
   }
+}
+
+.profile-pic-wrapper {
+  width: 100px;
+  //position: absolute;
+  top: 25px;
+  margin: 0 auto;
+}
+#profile-pic {
+  width: 100%;
+  height: auto;
+  border: 2px solid white;  
+  border-radius: 50%;
 }
 
 #profile-wrapper  {
@@ -267,3 +296,5 @@ nav {
     width: 100%;
   }
 } 
+
+
