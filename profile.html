@@ -60,6 +60,11 @@
     <div class="profile-header">
       <div class="hero">
         <div class="hero-top">
+            <div class="upload-profile-pic" id="upload-profile-pic">
+                <input type="file" name="file" id="file" class="inputfile" />
+                <label for="file"><i class="fa fa-upload" aria-hidden="true"></i> Upload Profile Pic</label>
+              <progress class="progress-bar" value="0" max="100" id="progress-bar">0%</progress>    
+            </div> 
           <div class="profile-pic-wrapper">
             <img id="profile-pic" src="" alt="">
           </div>
@@ -73,11 +78,8 @@
       </div>
     </div>
 
-    <form>
-      <input type="file" name="upload" id="upload">
-      <button id="submit-upload" type="button">Submit</button>
-    </form>
-    <progress value="0" max="100" id="progress-bar">0%</progress>    
+    
+  
 
 
     <div id="post-holder">

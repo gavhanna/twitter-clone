@@ -642,6 +642,23 @@ nav {
   color: #333;
 }
 
+.upload-profile-pic {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.progress-bar {
+  position: absolute;
+  display: none;
+  bottom: 0;
+  left: 0;
+}
+
+.progress-bar.bar-visible {
+  display: block;
+}
+
 .profile-pic-wrapper {
   width: 100px;
   top: 25px;
@@ -724,6 +741,34 @@ nav {
   .post-block {
     width: 100%;
   }
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  color: white;
+  background-color: #447c92;
+  display: inline-block;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  padding: 10px;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: skyblue;
+}
+
+.inputfile:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
 }
  
 

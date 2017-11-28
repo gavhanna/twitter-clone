@@ -5,13 +5,12 @@ const db = firebase.database();
 const Posts = new PostManager();
 let currentUser;
 
+const uploadButtonContainer = document.getElementById('upload-profile-pic');
 const profilePic = document.getElementById('profile-pic');
 const progressBar = document.getElementById('progress-bar');
-const submitUploadButton = document.getElementById('submit-upload')
-const uploadField = document.getElementById('upload');
+const uploadField = document.getElementById('file');
 
 uploadField.addEventListener('change', uploadProfilePic);
-submitUploadButton.addEventListener('click', uploadProfilePic);
 
 
 function uploadProfilePic(e) {
@@ -19,6 +18,7 @@ function uploadProfilePic(e) {
   const user = firebase.auth().currentUser;
   const storageRef = firebase.storage().ref(currentUser.uid + '/profilePicture/profile');
   const task = storageRef.put(file);
+  progressBar.classList.add('bar-visible');
 
   task.on('state_changed',
     function progress(snapshot) {
@@ -30,7 +30,15 @@ function uploadProfilePic(e) {
     },
     function complete() {
       console.log('Upload complete');
-      
+      progressBar.classList.remove('bar-visible');
+      getProfilePic(currentUser.uid, profilePic);
+      uploadButtonContainer.innerHTML = "Done!";
+      setTimeout(() => {
+        uploadButtonContainer.innerHTML = `
+        <input type="file" name="file" id="file" class="inputfile" />
+        <label for="file"><i class="fa fa-upload" aria-hidden="true"></i> Upload Profile Pic</label>
+      <progress class="progress-bar" value="0" max="100" id="progress-bar">0%</progress>   `;
+      }, 2000);
     }
   )
 }
@@ -82,3 +90,4 @@ firebase.auth().onAuthStateChanged(function(user) {
     console.log('No user logged in.');
   }
 });
+
