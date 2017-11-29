@@ -1,8 +1,7 @@
 const navButton = document.getElementById('nav-button');
 const nav = document.querySelector('.nav-items');
 const closeNav = document.getElementById('close-nav-area');
-
-
+const db = firebase.database();
 let userProfileLink;
 
 closeNav.addEventListener('click', navOpen);
@@ -18,6 +17,7 @@ function PostManager() {
   this.createPostElement = function(post, postId) {
     const postEl = document.createElement('div');
     postEl.className += 'post';
+    
     postEl.innerHTML = `
       <div class="post-block">
         <div class="post-left">
@@ -31,7 +31,10 @@ function PostManager() {
           <span class="small">${new Date(post.posted_at) == 'Invalid Date' ? new Date().toString().slice(0,21) : new Date(post.posted_at).toString().slice(0,21) }</span>
         </div>
         ${
-          post.user_id !== currentUser.uid ? '' : '<span style="z-index: 1;"><i data-post-id="' + (postId || post.post_id) + '" style="z-index: 0;" class="fa fa-trash delete-post" aria-hidden="true"></i></span>'
+          post.user_id !== currentUser.uid ? '' : 
+          '<span style="z-index: 1;"><i data-post-id="' 
+          + (postId || post.post_id) + 
+          '" style="z-index: 0;" class="fa fa-trash delete-post" aria-hidden="true"></i></span>'
         }
       </div>
     `
@@ -43,28 +46,7 @@ function PostManager() {
     postHolder.innerHTML = '';
     const reversePosts = this.posts.reverse();
     for (const post of reversePosts) {
-     
       const postEl = this.createPostElement(post);
-
-      // const postEl = document.createElement('div');
-      // postEl.className += 'post';
-      // postEl.innerHTML = `
-      //   <div class="post-block">
-      //     <div class="post-left">
-      //       <a href="profile.html?user=${post.user_id}">
-      //         <img src="${post.user_profile_url}" class="post-profile">
-      //       </a>
-      //     </div>
-      //     <div class="post-right">
-      //       <h5 class="post-title"><a href="profile.html?user=${post.user_id}">${post.name}</a></h5>
-      //       <p class="post-text">${post.content}</p>
-      //       <span class="small">${new Date(post.posted_at) == 'Invalid Date' ? new Date().toString().slice(0,21) : new Date(post.posted_at).toString().slice(0,21) }</span>
-      //     </div>
-      //     ${
-      //       post.user_id !== currentUser.uid ? '' : '<span style="z-index: 1;"><i data-post-id="' + post.post_id + '" style="z-index: 0;" class="fa fa-trash delete-post" aria-hidden="true"></i></span>'
-      //     }
-      //   </div>
-      // `
       postHolder.appendChild(postEl);
       applyListeners();
     }
@@ -77,7 +59,6 @@ function applyListeners() {
     btn.addEventListener('click', deletePost);
   });
 }
-
 
 function navOpen() {
   nav.classList.toggle('open');
@@ -98,11 +79,8 @@ function getProfilePic(user, element) {
 
 function deletePost(e) {
   const postId = e.target.dataset.postId;
-  console.log(postId);
   if (confirm('Really delete post?')) {
-    console.log('OK DELETE IT');
     firebase.database().ref('/posts/' + postId).remove();
     e.target.parentElement.parentElement.parentElement.remove()
   }
-  
 }

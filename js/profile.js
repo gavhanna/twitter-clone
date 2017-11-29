@@ -1,15 +1,15 @@
 const usernameDisplay = document.getElementById('username');
 const userPostCountDisplay = document.getElementById('user-post-count')
 const postHolder = document.getElementById('post-holder');
-const db = firebase.database();
-const Posts = new PostManager();
-let currentUser;
-
 const uploadButtonContainer = document.getElementById('upload-profile-pic');
 const profilePic = document.getElementById('profile-pic');
 const progressBar = document.getElementById('progress-bar');
 const uploadField = document.getElementById('file');
 
+const Posts = new PostManager();
+
+
+let currentUser;
 let isUserProfilePage;
 
 uploadField.addEventListener('change', uploadProfilePic);

@@ -5,7 +5,6 @@ const submitButton = document.getElementById('submit-button');
 const postContent = document.getElementById('post-content');
 const logoutButton = document.getElementById('log-out');
 const form = document.getElementById('form');
-const db = firebase.database();
 const Posts = new PostManager();
 let currentUser;
 
@@ -59,10 +58,8 @@ function writeData(post) {
 }
 
 function getData() {
-  console.log('GETDATA CALLED');
-  
   const postArray = [];
-  return db.ref('/posts').orderByChild('post_at').once('value')
+  db.ref('/posts').orderByChild('post_at').once('value')
     .then(function(snapshot) {
       snapshot.forEach(el => {
         const post = el.val();
@@ -110,19 +107,3 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 
 getData();
-// .then(posts => {
-//   let userPostCount = 0;
-//   posts.forEach(post => {
-//     Posts.addPost(post);
-//     if (post.user_id === currentUser.uid) {
-//       userPostCount++;
-//     }
-//     userPostCountDisplay.innerText = userPostCount;
-//   })
-// }
-// ).then(() => {
-//   Posts.renderPosts();
-// });
-
-
-
