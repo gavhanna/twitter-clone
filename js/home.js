@@ -24,18 +24,14 @@ function onSubmit() {
       user_id: currentUser.uid,
       posted_at: firebase.database.ServerValue.TIMESTAMP,
       user_profile_url: userProfileLink
-    }
-
+    };
     writeData(newPost).then((data) => {
-      console.log(data);
-      
       const newEl = Posts.createPostElement(newPost, data.key);
       postHolder.prepend(newEl);
       applyListeners();
     });
   } else {
     postContent.placeholder = `${currentUser.displayName.split(' ')[0]}, you didn't blab about anything...`;
-    console.log('Empty field(s), doing nothing.');
     setTimeout(() => {
       postContent.focus();
     }, 100);
@@ -83,14 +79,14 @@ function getData() {
 }
 
   function focused(e) {
-    submitButton.style.display = 'block';
+    //submitButton.style.display = 'block';
   }
 
   function unfocused(e) {
     postContent.placeholder = `Blab about something...`;
-    setTimeout(() => {
-      submitButton.style.display = 'none';      
-    }, 100);
+    // setTimeout(() => {
+    //   submitButton.style.display = 'none';      
+    // }, 100);
   }
 
 
