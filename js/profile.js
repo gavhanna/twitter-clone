@@ -4,7 +4,7 @@ const postHolder = document.getElementById('post-holder');
 const uploadButtonContainer = document.getElementById('upload-profile-pic');
 const profilePic = document.getElementById('profile-pic');
 const progressBar = document.getElementById('progress-bar');
-const uploadField = document.getElementById('file');
+let uploadField;
 
 const Posts = new PostManager();
 
@@ -12,7 +12,6 @@ const Posts = new PostManager();
 let currentUser;
 let isUserProfilePage;
 
-uploadField.addEventListener('change', uploadProfilePic);
 
 function uploadProfilePic(e) {
   const file = this.files[0];
@@ -44,7 +43,17 @@ function uploadProfilePic(e) {
   )
 }
 
-
+function placeUploadButton() {
+  const uploadInput = `
+    <input type="file" name="file" id="file" class="inputfile" />
+    <label for="file"><i class="fa fa-upload" aria-hidden="true"></i></label>`;
+  if (getParameterByName('user') === currentUser.uid || !getParameterByName('user')) {
+    uploadButtonContainer.innerHTML = uploadInput;
+    uploadField = document.getElementById('file');
+    uploadField.addEventListener('change', uploadProfilePic);
+  } 
+  
+}
 
 function getParameterByName(name, url) {
   if (!url) url = window.location.href;
@@ -88,6 +97,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       getUserPosts(firebase.auth().currentUser.uid);
       getProfilePic(firebase.auth().currentUser.uid, profilePic);
       usernameDisplay.innerText = firebase.auth().currentUser.displayName;
+      placeUploadButton();
       isUserProfilePage = true;
     }
   } else {
