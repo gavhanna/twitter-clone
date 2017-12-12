@@ -10,7 +10,7 @@ const Posts = new PostManager();
 
 
 let currentUser;
-let isUserProfilePage;
+let isUserProfilePage = false;
 
 
 function uploadProfilePic(e) {
@@ -97,13 +97,16 @@ firebase.auth().onAuthStateChanged(function(user) {
       getUserPosts(firebase.auth().currentUser.uid);
       getProfilePic(firebase.auth().currentUser.uid, profilePic);
       usernameDisplay.innerText = firebase.auth().currentUser.displayName;
-      placeUploadButton();
       isUserProfilePage = true;
     }
   } else {
     console.log('No user logged in.');
   }
   console.log(isUserProfilePage);
+
+  if (isUserProfilePage === true) {
+    placeUploadButton();
+  }
   
 });
 
