@@ -75,6 +75,7 @@ function getUserPosts(uid) {
     snapshot.forEach(el => {
       const post = el.val();
       if (post.user_id === uid) {
+        
         postArray.push(post);
         Posts.addPost(post);
         usernameDisplay.innerText = post.name;

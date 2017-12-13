@@ -14,7 +14,7 @@ function PostManager() {
     this.posts.push(post);
   }
 
-  this.createPostElement = function(post, postId) {
+  this.createPostElement = function(post, profilePicLink) {
     const postEl = document.createElement('div');
     postEl.className += 'post';
     
@@ -22,7 +22,7 @@ function PostManager() {
       <div class="post-block">
         <div class="post-left">
           <a href="profile.html?user=${post.user_id}">
-            <img src="${post.user_profile_url}" class="post-profile">
+            <img src="${profilePicLink || post.user_profile_url}" class="post-profile">
           </a>
         </div>
         <div class="post-right">
@@ -33,7 +33,7 @@ function PostManager() {
         ${
           post.user_id !== currentUser.uid ? '' : 
           '<span style="z-index: 1;"><i data-post-id="' 
-          + (postId || post.post_id) + 
+          + post.post_id + 
           '" style="z-index: 0;" class="fa fa-trash delete-post" aria-hidden="true"></i></span>'
         }
       </div>
@@ -46,9 +46,12 @@ function PostManager() {
     postHolder.innerHTML = '';
     const reversePosts = this.posts.reverse();
     for (const post of reversePosts) {
-      const postEl = this.createPostElement(post);
+      const link = getProfilePic(post.user_id);
+      console.log(link);
+      const postEl = this.createPostElement(post, link.i);
       postHolder.appendChild(postEl);
       applyListeners();
+
     }
   }
 }
@@ -74,6 +77,7 @@ function getProfilePic(user, element) {
        element.src = url;
      }
     userProfileLink = url;
+    return url;
   })
 }
 
@@ -84,5 +88,3 @@ function deletePost(e) {
     e.target.parentElement.parentElement.parentElement.remove()
   }
 }
-
-getProfilePic().then(e => console.log(e));
