@@ -84,9 +84,7 @@ function getData() {
 
   function unfocused(e) {
     postContent.placeholder = `Blab about something...`;
-    // setTimeout(() => {
-    //   submitButton.style.display = 'none';      
-    // }, 100);
+
   }
 
 

@@ -69,7 +69,7 @@ function navOpen() {
 function getProfilePic(user, element) {
   const storage = firebase.storage();
   const pathRef = storage.ref(user + '/profilePicture/profile');
-   return pathRef.getDownloadURL().then(url => {
+  return pathRef.getDownloadURL().then(url => {
      if (element) {
        element.src = url;
      }
@@ -84,3 +84,5 @@ function deletePost(e) {
     e.target.parentElement.parentElement.parentElement.remove()
   }
 }
+
+getProfilePic().then(e => console.log(e));
