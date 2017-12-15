@@ -102,6 +102,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
   } else {
     console.log('No user logged in.');
+    location.href = '/login.html';
   }
   console.log(isUserProfilePage);
 

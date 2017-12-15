@@ -96,6 +96,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     getProfilePic(user.uid);
   } else {
     console.log('No user logged in.');
+    location.href = '/login.html';
   }
 });
 
