@@ -3,13 +3,13 @@ const userPostCountDisplay = document.getElementById('post-count');
 const postHolder = document.getElementById('post-holder');
 const submitButton = document.getElementById('submit-button');
 const postContent = document.getElementById('post-content');
-const logoutButton = document.getElementById('log-out');
+
 const form = document.getElementById('form');
 const Posts = new PostManager();
 let currentUser;
 
 submitButton.addEventListener('click', onSubmit);
-logoutButton.addEventListener('click', signOut);
+
 postContent.addEventListener('focus', focused);
 postContent.addEventListener('blur', unfocused);
 

@@ -440,6 +440,18 @@ body {
   max-width: 100vw;
 }
 
+.blurb > h1 {
+  font-family: "Kite One";
+  font-size: 5rem;
+  margin: 0 0 20px 0;
+  background: #447c92;
+}
+
+.blurb > img {
+  background: #5898b1;
+  border-radius: 50%;
+}
+
 textarea {
   border: 1px solid #999;
   overflow: auto;
