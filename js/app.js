@@ -61,7 +61,7 @@ function PostManager() {
 function signOut() {
   firebase.auth().signOut().then(function() {
     console.log('Logged out.');
-    window.location.href="/login.html";
+    window.location.pathname="/login.html";
   }).catch(function(error) {
     console.log('Error logging out:', error);
   });
