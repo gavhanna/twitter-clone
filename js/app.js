@@ -1,11 +1,13 @@
 const navButton = document.getElementById('nav-button');
 const nav = document.querySelector('.nav-items');
 const closeNav = document.getElementById('close-nav-area');
+const logoutButton = document.getElementById('log-out');
 const db = firebase.database();
 let userProfileLink;
 
 closeNav.addEventListener('click', navOpen);
 navButton.addEventListener('click', navOpen);
+logoutButton.addEventListener('click', signOut);
 
 function PostManager() {
   this.posts = [];
@@ -54,6 +56,15 @@ function PostManager() {
 
     }
   }
+}
+
+function signOut() {
+  firebase.auth().signOut().then(function() {
+    console.log('Logged out.');
+    window.location.href="/login.html";
+  }).catch(function(error) {
+    console.log('Error logging out:', error);
+  });
 }
 
 function applyListeners() {

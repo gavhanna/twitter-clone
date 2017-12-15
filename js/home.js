@@ -43,7 +43,7 @@ function onSubmit() {
 function signOut() {
   firebase.auth().signOut().then(function() {
     console.log('Logged out.');
-    window.location.href="/";
+    window.location.href="/login.html";
   }).catch(function(error) {
     console.log('Error logging out:', error);
   });
