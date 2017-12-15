@@ -96,7 +96,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     getProfilePic(user.uid);
   } else {
     console.log('No user logged in.');
-    location.pathname = '/login.html';
+    location.pathname = '/twitter-clone/login.html';
   }
 });
 
