@@ -5,6 +5,8 @@ const logoutButton = document.getElementById('log-out');
 const db = firebase.database();
 let userProfileLink;
 
+const baseURL = '/';
+
 closeNav.addEventListener('click', navOpen);
 navButton.addEventListener('click', navOpen);
 logoutButton.addEventListener('click', signOut);
@@ -60,7 +62,7 @@ function PostManager() {
 function signOut() {
   firebase.auth().signOut().then(function() {
     console.log('Logged out.');
-    window.location.pathname="/twitter-clone/login.html";
+    window.location.pathname = baseURL +  "login.html";
   }).catch(function(error) {
     console.log('Error logging out:', error);
   });
