@@ -5,7 +5,7 @@ const logoutButton = document.getElementById('log-out');
 const db = firebase.database();
 let userProfileLink;
 
-const baseURL = '/';
+const baseURL = '/twitter-clone/';
 
 closeNav.addEventListener('click', navOpen);
 navButton.addEventListener('click', navOpen);
