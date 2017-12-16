@@ -49,7 +49,6 @@ function PostManager() {
     const reversePosts = this.posts.reverse();
     for (const post of reversePosts) {
       const link = getProfilePic(post.user_id);
-      console.log(link);
       const postEl = this.createPostElement(post, link.i);
       postHolder.appendChild(postEl);
       applyListeners();
@@ -61,7 +60,7 @@ function PostManager() {
 function signOut() {
   firebase.auth().signOut().then(function() {
     console.log('Logged out.');
-    window.location.pathname="/twitter-clone/login.html";
+    window.location.pathname="/login.html";
   }).catch(function(error) {
     console.log('Error logging out:', error);
   });

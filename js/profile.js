@@ -102,7 +102,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
   } else {
     console.log('No user logged in.');
-    location.pathname = '/twitter-clone/login.html';
+    location.pathname = '/login.html';
   }
   console.log(isUserProfilePage);
 

@@ -17,19 +17,19 @@ postContent.addEventListener('blur', unfocused);
 
 function onSubmit() {
   if (postContent.value !== '') {
+    const content = postContent.value;
     userPostCountDisplay.innerText = +userPostCountDisplay.innerText + 1;
-    const newPost = {
-      name: userDisplayName, 
-      content: postContent.value,
-      user_id: currentUser.uid,
-      posted_at: firebase.database.ServerValue.TIMESTAMP,
-      user_profile_url: userProfileLink
-    };
-    writeData(newPost).then((data) => {
-      const newEl = Posts.createPostElement(newPost, data.key);
-      postHolder.prepend(newEl);
-      applyListeners();
-    });
+    const pLink = getProfilePic(currentUser.uid);
+    pLink.then(link => {
+      const newPost = {
+        name: userDisplayName, 
+        content: content,
+        user_id: currentUser.uid,
+        posted_at: firebase.database.ServerValue.TIMESTAMP,
+        user_profile_url: link
+      };
+      sendPost(newPost);
+    });    
   } else {
     postContent.placeholder = `${currentUser.displayName.split(' ')[0]}, you didn't blab about anything...`;
     setTimeout(() => {
@@ -49,8 +49,11 @@ function signOut() {
   });
 }
 
-function writeData(post) {
-  return db.ref('posts').push(post);
+function sendPost(post) {
+  const data = db.ref('posts').push(post);
+  const newEl = Posts.createPostElement(post, post.user_profile_url);
+  postHolder.prepend(newEl);
+  applyListeners();
 }
 
 function getData() {
@@ -78,14 +81,14 @@ function getData() {
     });
 }
 
-  function focused(e) {
-    //submitButton.style.display = 'block';
-  }
+function focused(e) {
+  //submitButton.style.display = 'block';
+}
 
-  function unfocused(e) {
-    postContent.placeholder = `Blab about something...`;
+function unfocused(e) {
+  postContent.placeholder = `Blab about something...`;
 
-  }
+}
 
 
 firebase.auth().onAuthStateChanged(function(user) {
@@ -96,7 +99,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     getProfilePic(user.uid);
   } else {
     console.log('No user logged in.');
-    location.pathname = '/twitter-clone/login.html';
+    location.pathname = '/login.html';
   }
 });
 
