@@ -9,7 +9,7 @@ let uploadField;
 const Posts = new PostManager();
 
 
-let currentUser;
+//
 let isUserProfilePage = false;
 
 

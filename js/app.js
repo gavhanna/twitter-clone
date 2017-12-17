@@ -6,7 +6,7 @@ const db = firebase.database();
 let userProfileLink;
 let currentUser;
 
-const baseURL = '/';
+const baseURL = '/twitter-clone/';
 
 closeNav.addEventListener('click', navOpen);
 navButton.addEventListener('click', navOpen);
@@ -35,7 +35,7 @@ function PostManager() {
           <p class="post-text">${post.content}</p>
           <div class="info">
             <span class="small">${new Date(post.posted_at) == 'Invalid Date' ? new Date().toString().slice(0,21) : new Date(post.posted_at).toString().slice(0,21) }</span>
-            <span class="small comments-count">${post.comments ? commentCount : 0} comments</span>
+            <span class="small comments-count count-for-${post.post_id}">${post.comments ? commentCount : 0} comments</span>
           </div>
         </div>
         ${
@@ -46,19 +46,21 @@ function PostManager() {
         }
       </div>
     `
-
+    const commentOuterEl = document.createElement('div');
+    commentOuterEl.classList += 'comments-outer-wrapper';
     const commentEl = document.createElement('div');
     commentEl.className += "comments-wrapper";
+    commentOuterEl.appendChild(commentEl);
     commentEl.id = post.post_id;
-    postEl.appendChild(commentEl);
+    postEl.appendChild(commentOuterEl);
     if (post.comments) {
       let commentsTotal = 0;
 
       for (let comment in post.comments) {
-        if (post.comments.hasOwnProperty(comment)) {
+        if (post.comments.hasOwnProperty(comment)) {          
           commentsTotal++;
           const com = post.comments[comment];
-          const comEl = this.createCommentElement(post.post_id, com);
+          const comEl = this.createCommentElement(post.post_id, com, comment);
           commentEl.appendChild(comEl);
         }
       }
@@ -76,9 +78,10 @@ function PostManager() {
     return postEl;
   }
 
-  this.createCommentElement = function(postId, com) {
+  this.createCommentElement = function(postId, com, commentId) {    
     const comEl = document.createElement('div');
     comEl.classList += 'comments';
+    comEl.id = commentId;
     comEl.innerHTML = `
       <div class="comment-left">
         <a href="profile.html?user=${postId}">
@@ -90,6 +93,12 @@ function PostManager() {
         <p>${com.content}</p>
         <span class="small">${new Date(com.posted_at) == 'Invalid Date' ? new Date().toString().slice(0,21) : new Date(com.posted_at).toString().slice(0,21) }</span>
       </div>
+      ${
+        com.user_id !== currentUser.uid ? '' : 
+        '<span style="z-index: 1;"><i data-comment-id="' 
+        + commentId + 
+        '" + data-post-id="' + postId + '" style="z-index: 0;" class="fa fa-trash delete-comment" aria-hidden="true"></i></span>'
+      }
     `;
     return comEl;
   }
@@ -118,6 +127,7 @@ function signOut() {
 
 function applyListeners() {
   const removePostButtons = document.querySelectorAll('.delete-post');
+  const removeCommentButtons = document.querySelectorAll('.delete-comment');
   const commentSubmitButtons = document.querySelectorAll('.comment-submit');
   const commentSubmitForms = document.querySelectorAll('.comment-form')
   // commentSubmitButtons.forEach(btn => {
@@ -129,6 +139,9 @@ function applyListeners() {
   removePostButtons.forEach(btn => {
     btn.addEventListener('click', deletePost);
   });
+  removeCommentButtons.forEach(btn => {
+    btn.addEventListener('click', deleteComment);
+  })
 }
 
 function navOpen() {
@@ -157,12 +170,23 @@ function deletePost(e) {
   }
 }
 
+function deleteComment(e) {  
+  const commentId = e.target.dataset.commentId;
+  const postId = e.target.dataset.postId;
+
+  if (confirm('Really delete comment?')) {
+    firebase.database().ref('/posts/' + postId + '/comments/' + commentId).remove();
+    e.target.parentElement.parentElement.remove();
+    
+    changeCommentCount(postId, '-');
+  }
+}
+
 
 function sendComment(postId, comment) {
   const data = db.ref('posts').child(postId).child('comments').push(comment);
   const newComment = Posts.createCommentElement(postId, comment);
   const parentPost = document.getElementById(postId);
-  console.log(parentPost);
   parentPost.appendChild(newComment);
   
   
@@ -186,8 +210,9 @@ function submitComment(e) {
         user_profile_url: link
       };
       sendComment(postId, newComment);
-      const commentCountEl = document.querySelector('.comments-count');
-      commentCountEl.innerText = parseInt(commentCountEl.innerText[0]) + 1 + ' comments';
+      // const commentCountEl = document.querySelector('.count-for-' + postId);
+      // commentCountEl.innerText = parseInt(commentCountEl.innerText[0]) + 1 + ' comments';
+      changeCommentCount(postId, '+')
       const textareas = document.querySelectorAll('textarea');
       textareas.forEach(el => {
         el.value = '';
@@ -202,6 +227,15 @@ function submitComment(e) {
   return;
   
 } 
+
+function changeCommentCount(postId, change) {
+  const commentCountEl = document.querySelector('.count-for-' + postId);
+  if (change === '+') {
+    commentCountEl.innerText = parseInt(commentCountEl.innerText[0]) + 1 + ' comments';
+  } else if (change === '-') {
+    commentCountEl.innerText = parseInt(commentCountEl.innerText[0]) - 1 + ' comments';
+  }
+}
 
 // for getting length of object
 Object.size = function(obj) {

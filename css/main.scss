@@ -163,17 +163,29 @@ nav {
   color: #333;
 }
 
-.comments-wrapper {
+
+.comments-outer-wrapper {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  width: 100%;
+}
+.comments-wrapper {
+  width: 88%;
+  max-width: 450px;
+  display: flex;
   flex-direction: column;
   .comments {
-    background: $background-color;
+    background: lighten($background-color, 5%);
     padding: 10px 10px;
-    width: 95%;
+    margin-bottom: 5px;
+    width: 100%;
     display: flex;
+
     .comment-left {
       width: 50px;
+    }
+    .comment-right {
+      width: 90%;
     }
   }
 }
@@ -186,6 +198,17 @@ nav {
   width: 30px;
   height: auto;
   border-radius: 3px;
+}
+
+.comment-form {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  textarea {
+    width: 84%;
+    max-width: 400px;
+    outline: 0;
+  }
 }
 
 .info {
