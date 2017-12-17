@@ -6,7 +6,7 @@ const db = firebase.database();
 let userProfileLink;
 let currentUser;
 
-const baseURL = '/';
+const baseURL = '/twitter-clone/';
 
 closeNav.addEventListener('click', navOpen);
 navButton.addEventListener('click', navOpen);
