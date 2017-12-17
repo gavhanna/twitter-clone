@@ -133,10 +133,13 @@ nav {
   }
 }
 
-.post-block {
+.post {
   color: #333;
   background: white;
   border: 1px solid #999;
+}
+
+.post-block {
   padding: 10px;
   margin: 10px 0;
   max-width: 500px;
@@ -158,6 +161,36 @@ nav {
 
 .post-title > a {
   color: #333;
+}
+
+.comments-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  .comments {
+    background: $background-color;
+    padding: 10px 10px;
+    width: 95%;
+    display: flex;
+    .comment-left {
+      width: 50px;
+    }
+  }
+}
+
+.comments-count {
+  cursor: pointer;
+}
+
+.comment-profile {
+  width: 30px;
+  height: auto;
+  border-radius: 3px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
 }
 
 #form {

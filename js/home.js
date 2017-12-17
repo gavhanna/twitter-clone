@@ -6,7 +6,6 @@ const postContent = document.getElementById('post-content');
 
 const form = document.getElementById('form');
 const Posts = new PostManager();
-let currentUser;
 
 submitButton.addEventListener('click', onSubmit);
 
@@ -40,15 +39,6 @@ function onSubmit() {
   return;
 }
 
-function signOut() {
-  firebase.auth().signOut().then(function() {
-    console.log('Logged out.');
-    window.location.href="/login.html";
-  }).catch(function(error) {
-    console.log('Error logging out:', error);
-  });
-}
-
 function sendPost(post) {
   const data = db.ref('posts').push(post);
   const newEl = Posts.createPostElement(post, post.user_profile_url);
@@ -67,6 +57,7 @@ function getData() {
       });
       return postArray;
     }).then(posts => {
+      
       let userPostCount = 0;
       posts.forEach(post => {
         Posts.addPost(post);
