@@ -12,3 +12,6 @@ It's currently a huge mess but certainly helped me learn quite alot.
 ## Firebase
 Using firebase as a backend pretty much so I don't have to waste time on mongoDb or anything else.
 
+
+
+### A working version can be found [here](https://gavhanna.github.io/twitter-clone/)
