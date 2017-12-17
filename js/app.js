@@ -6,7 +6,7 @@ const db = firebase.database();
 let userProfileLink;
 let currentUser;
 
-const baseURL = '/twitter-clone/';
+const baseURL = '/';
 
 closeNav.addEventListener('click', navOpen);
 navButton.addEventListener('click', navOpen);
@@ -57,11 +57,14 @@ function PostManager() {
       let commentsTotal = 0;
 
       for (let comment in post.comments) {
-        if (post.comments.hasOwnProperty(comment)) {          
+        if (post.comments.hasOwnProperty(comment)) {    
           commentsTotal++;
           const com = post.comments[comment];
-          const comEl = this.createCommentElement(post.post_id, com, comment);
-          commentEl.appendChild(comEl);
+          const profileLink = getProfilePic(com.user_id);
+          profileLink.then(link => {
+            const comEl = this.createCommentElement(post.post_id, com, comment, link);
+            commentEl.appendChild(comEl);
+          })
         }
       }
     }
@@ -78,14 +81,14 @@ function PostManager() {
     return postEl;
   }
 
-  this.createCommentElement = function(postId, com, commentId) {    
+  this.createCommentElement = function(postId, com, commentId, profileLink) {    
     const comEl = document.createElement('div');
     comEl.classList += 'comments';
     comEl.id = commentId;
     comEl.innerHTML = `
       <div class="comment-left">
         <a href="profile.html?user=${postId}">
-          <img src="${userProfileLink}" class="comment-profile">
+          <img src="${profileLink}" class="comment-profile">
         </a>
       </div>
       <div class="comment-right">
@@ -110,9 +113,15 @@ function PostManager() {
       const link = getProfilePic(post.user_id);
       const postEl = this.createPostElement(post, link.i);
       postHolder.appendChild(postEl);
-      applyListeners();
-
     }
+    applyListeners();
+    // setting a timeout as a fallback
+    // for some reason this stopped applying
+    // listeners to comments..
+    // TODO: fix this!
+    setTimeout(() => {
+      applyListeners();
+    }, 1000);
   }
 }
 
@@ -128,11 +137,8 @@ function signOut() {
 function applyListeners() {
   const removePostButtons = document.querySelectorAll('.delete-post');
   const removeCommentButtons = document.querySelectorAll('.delete-comment');
-  const commentSubmitButtons = document.querySelectorAll('.comment-submit');
   const commentSubmitForms = document.querySelectorAll('.comment-form')
-  // commentSubmitButtons.forEach(btn => {
-  //   btn.addEventListener('click', submitComment);
-  // });
+
   commentSubmitForms.forEach(btn => {
     btn.addEventListener('submit', submitComment);
   });
@@ -185,12 +191,20 @@ function deleteComment(e) {
 
 function sendComment(postId, comment) {
   const data = db.ref('posts').child(postId).child('comments').push(comment);
-  const newComment = Posts.createCommentElement(postId, comment);
-  const parentPost = document.getElementById(postId);
-  parentPost.appendChild(newComment);
+  const parentPost = document.getElementById(postId);  
+  data.then(data => {
+    commentId = data.key;
+    const profileLink = getProfilePic(comment.user_id);
+    profileLink.then(link => {
+      comment.user_profile_url = link;
+      const newComment = Posts.createCommentElement(postId, comment, commentId, link);
+      parentPost.appendChild(newComment);
+      applyListeners();
+    })
+  })
   
   
-  //applyListeners();
+  
 }
 
 function submitComment(e) {

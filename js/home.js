@@ -20,12 +20,14 @@ function onSubmit() {
     userPostCountDisplay.innerText = +userPostCountDisplay.innerText + 1;
     const pLink = getProfilePic(currentUser.uid);
     pLink.then(link => {
+      console.log(link);
+      
       const newPost = {
         name: userDisplayName, 
         content: content,
         user_id: currentUser.uid,
         posted_at: firebase.database.ServerValue.TIMESTAMP,
-        user_profile_url: link
+        user_profile_url: link || null
       };
       sendPost(newPost);
     });    
