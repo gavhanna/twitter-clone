@@ -541,6 +541,10 @@ nav {
   }
 }
 
+#profile-pic {
+  background: white;
+}
+
 .user-card {
   height: 150px;
   text-align: center;
