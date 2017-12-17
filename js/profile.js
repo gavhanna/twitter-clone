@@ -75,7 +75,7 @@ function getUserPosts(uid) {
     snapshot.forEach(el => {
       const post = el.val();
       if (post.user_id === uid) {
-        
+        post.post_id = el.key;
         postArray.push(post);
         Posts.addPost(post);
         usernameDisplay.innerText = post.name;
@@ -86,6 +86,7 @@ function getUserPosts(uid) {
     return postArray;
   })
 }
+
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {

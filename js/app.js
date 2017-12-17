@@ -202,9 +202,6 @@ function sendComment(postId, comment) {
       applyListeners();
     })
   })
-  
-  
-  
 }
 
 function submitComment(e) {
@@ -224,8 +221,6 @@ function submitComment(e) {
         user_profile_url: link
       };
       sendComment(postId, newComment);
-      // const commentCountEl = document.querySelector('.count-for-' + postId);
-      // commentCountEl.innerText = parseInt(commentCountEl.innerText[0]) + 1 + ' comments';
       changeCommentCount(postId, '+')
       const textareas = document.querySelectorAll('textarea');
       textareas.forEach(el => {
