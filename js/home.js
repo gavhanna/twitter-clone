@@ -21,7 +21,6 @@ function onSubmit() {
     const pLink = getProfilePic(currentUser.uid);
     pLink.then(link => {
       console.log(link);
-      
       const newPost = {
         name: userDisplayName, 
         content: content,
