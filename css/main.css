@@ -858,6 +858,43 @@ nav {
   outline: 1px dotted #000;
   outline: -webkit-focus-ring-color auto 5px;
 }
+
+.loading-screen {
+  position: fixed;
+  min-height: 100vh;
+  min-width: 100vw;
+  top: 0;
+  left: 0;
+  background: rgba(68, 124, 146, 0.781);
+  z-index: 10;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loading-screen .loading {
+  margin: 0 auto;
+}
+
+.loading-screen .loading > img {
+  background: #5898b1;
+  border-radius: 50%;
+  animation: 2s linear loading-spinner;
+  animation-iteration-count: infinite;
+}
+
+@keyframes loading-spinner {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(180deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
  
 
  /*# sourceMappingURL= main.css.map */
