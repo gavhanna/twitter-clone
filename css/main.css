@@ -444,11 +444,11 @@ body {
   font-family: "Kite One";
   font-size: 5rem;
   margin: 0 0 20px 0;
-  background: #447c92;
+  background: #147ba3;
 }
 
 .blurb > img {
-  background: #5898b1;
+  background: #1a9dd0;
   border-radius: 50%;
 }
 
@@ -484,7 +484,7 @@ a:hover, .link-item:hover {
   font-family: "Roboto";
   text-align: center;
   color: white;
-  background: #447c92;
+  background: #147ba3;
   min-height: 100vh;
   min-width: 100vw;
   display: flex;
@@ -493,7 +493,7 @@ a:hover, .link-item:hover {
 }
 
 nav {
-  background: #447c92;
+  background: #147ba3;
 }
 
 #nav-wrapper {
@@ -515,6 +515,17 @@ nav {
 
 .nav-items .nav-item {
   margin: 0 10px;
+}
+
+.nav-icon {
+  width: 10px;
+  height: 10px;
+}
+
+.nav-icon > img {
+  margin-top: -3px;
+  background: #1a9dd0;
+  border-radius: 50%;
 }
 
 #wrapper {
@@ -552,7 +563,7 @@ nav {
 }
 
 .user-card .top-half {
-  background: #447c92;
+  background: #147ba3;
   color: white;
   height: 40%;
   display: flex;
@@ -676,15 +687,15 @@ nav {
   margin: 10px 0px;
   transition: all .2s ease-in-out;
   color: white;
-  background: #447c92;
-  border: 1px solid #447c92;
+  background: #147ba3;
+  border: 1px solid #147ba3;
   padding: 10px;
   cursor: pointer;
 }
 
 #form > #submit-button:hover {
   background: white;
-  color: #447c92;
+  color: #147ba3;
 }
 
 .new-message {
@@ -709,7 +720,7 @@ nav {
   justify-content: flex-end;
   height: 70%;
   color: white;
-  background: #447c92;
+  background: #147ba3;
   position: relative;
 }
 
@@ -796,7 +807,7 @@ nav {
   .nav-items {
     display: none;
     flex-direction: column;
-    background: #447c92;
+    background: #147ba3;
     height: 100vh;
     width: 50vw;
     z-index: 100;
@@ -842,7 +853,7 @@ nav {
 
 .inputfile + label {
   color: white;
-  background-color: #447c92;
+  background-color: #147ba3;
   display: inline-block;
   cursor: pointer;
   transition: all .2s ease-in-out;
@@ -878,7 +889,7 @@ nav {
 }
 
 .loading-screen .loading > img {
-  background: #5898b1;
+  background: #1a9dd0;
   border-radius: 50%;
   animation: 2s linear loading-spinner;
   animation-iteration-count: infinite;
@@ -895,6 +906,4 @@ nav {
     transform: rotateY(360deg);
   }
 }
- 
-
- /*# sourceMappingURL= main.css.map */
+/*# sourceMappingURL=main.css.map */

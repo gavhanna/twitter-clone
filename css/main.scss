@@ -1,7 +1,7 @@
 @import "_normalize.scss";
 @import url('https://fonts.googleapis.com/css?family=Kite+One|Roboto');
 
-$main-color: #447c92;
+$main-color: #147ba3;
 $display-font: 'Kite One';
 $text-font: 'Roboto';
 $text-color: white;
@@ -91,6 +91,16 @@ nav {
   .nav-item {
     margin: 0 10px;
   }  
+}
+
+.nav-icon {
+  width: 10px;
+  height: 10px;
+  > img {
+    margin-top: -3px;
+    background: lighten($main-color, 10%);
+    border-radius: 50%;
+  }
 }
 
 #wrapper {
