@@ -160,17 +160,13 @@ function getProfilePic(user, element) {
   const storage = firebase.storage();
   const pathRef = storage.ref(user + '/profilePicture/profile');
   return pathRef.getDownloadURL().then((url) => {
-    console.log(url.t);
-    
      if (element) {
        element.src = url;
      }
     userProfileLink = url;
     return url;
   }).catch(err => {
-    console.log(err);
     if (err.code === "storage/object-not-found") {
-      console.log('NOT FOUND');
       userProfileLink = "https://firebasestorage.googleapis.com/v0/b/shittr-2e495.appspot.com/o/6uisORG65WUZaZx4FWhDjcoOIVA2%2FprofilePicture%2Fprofile?alt=media&token=428decc3-b503-4d49-841e-0cf7941d1a54";
       return userProfileLink;
     }
