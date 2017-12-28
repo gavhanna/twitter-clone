@@ -55,18 +55,19 @@ function PostManager() {
     postEl.appendChild(commentOuterEl);
     if (post.comments) {
       let commentsTotal = 0;
-
-      for (let comment in post.comments) {
-        if (post.comments.hasOwnProperty(comment)) {    
-          commentsTotal++;
-          const com = post.comments[comment];
-          const profileLink = getProfilePic(com.user_id);
-          profileLink.then(link => {
-            const comEl = this.createCommentElement(post.post_id, com, comment, link);
-            commentEl.appendChild(comEl);
-          })
-        }
+      const commentArray = [];
+      for (let comment in post.comments) {    
+        commentsTotal++;
+        const com = post.comments[comment];
+        com.comment_id = comment;
+        commentArray.push(com);
       }
+      
+      commentArray.forEach(com => {
+        const profileLink = getProfilePic(com.user_id);
+        const comEl = this.createCommentElement(post.post_id, com);
+        commentEl.appendChild(comEl);
+      })
     }
 
     const commentInput = document.createElement('div');
@@ -81,14 +82,13 @@ function PostManager() {
     return postEl;
   }
 
-  this.createCommentElement = function(postId, com, commentId, profileLink) {    
+  this.createCommentElement = function(postId, com, profileLink) {    
     const comEl = document.createElement('div');
     comEl.classList += 'comments';
-    comEl.id = commentId;
     comEl.innerHTML = `
       <div class="comment-left">
         <a href="profile.html?user=${postId}">
-          <img src="${profileLink}" class="comment-profile">
+          <img src="${com.user_profile_url}" class="comment-profile">
         </a>
       </div>
       <div class="comment-right">
@@ -99,7 +99,7 @@ function PostManager() {
       ${
         com.user_id !== currentUser.uid ? '' : 
         '<span style="z-index: 1;"><i data-comment-id="' 
-        + commentId + 
+        + com.comment_id + 
         '" + data-post-id="' + postId + '" style="z-index: 0;" class="fa fa-trash delete-comment" aria-hidden="true"></i></span>'
       }
     `;
