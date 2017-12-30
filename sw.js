@@ -1,13 +1,13 @@
 var CACHE_NAME = 'pages-cache-v1';
 var urlsToCache = [
+  '/login.html',
   '/index.html',
-  '/home.html',
   '/profile.html',
   '/css/main.css',
   '/js/app.js',
   '/js/firebase-auth.js',
   '/js/home.js',
-  '/js/index.js',
+  '/js/login.js',
   '/js/profile.js'
 ];
 
