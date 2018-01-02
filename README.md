@@ -1,7 +1,7 @@
 Twitter Clone
 =============
 
-# Shittr, the crappy twitter clone!
+# Blabbr, the crappy twitter clone!
 
 Built using as little outside help as possible.
 Not using any frontend frameworks, not even jQuery.
