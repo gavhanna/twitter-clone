@@ -559,7 +559,7 @@ nav {
 .user-card {
   height: 150px;
   text-align: center;
-  border: 1px solid #999;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
 .user-card .top-half {
@@ -579,7 +579,7 @@ nav {
 .post {
   color: #333;
   background: white;
-  border: 1px solid #999;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
 .post-block {
@@ -664,6 +664,19 @@ nav {
   outline: 0;
 }
 
+.comment-submit {
+  color: white;
+  background: #147ba3;
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+  border: 1px solid #147ba3;
+}
+
+.comment-submit:hover {
+  color: #147ba3;
+  background: white;
+}
+
 .info {
   display: flex;
   justify-content: space-between;
@@ -680,6 +693,7 @@ nav {
   z-index: 10;
   border-radius: 3px;
   padding: 10px;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
 #form > #submit-button {
@@ -691,6 +705,8 @@ nav {
   border: 1px solid #147ba3;
   padding: 10px;
   cursor: pointer;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  z-index: 10;
 }
 
 #form > #submit-button:hover {
