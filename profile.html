@@ -79,12 +79,26 @@
     </div>
   </nav>
 
+  <div class="options-menu" id="options-menu">
+    <div class="close-menu" id="close-menu">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </div>
+    <div class="options-title">
+      <h3>Settings</h3>
+    </div>
+    <div class="options-wrapper">
+      <!-- <input type="text" class="change-username-input" id="change-username-input" placeholder="Change username"> -->
+      <input type="file" name="file" id="file" class="inputfile" />
+      <label for="file"><i class="fa fa-upload" aria-hidden="true"></i> Upload Profile Pic</label>
+      <progress class="progress-bar" value="0" max="100" id="progress-bar">0%</progress>
+    </div>
+  </div>
 
   <div id="profile-wrapper">
     <div class="profile-header">
       <div class="hero">
         <div class="hero-top">
-            <div class="upload-profile-pic" id="upload-profile-pic">
+            <div class="options-menu-button" id="options-menu-button">
              <progress class="progress-bar" value="0" max="100" id="progress-bar">0%</progress>    
             </div> 
           <div class="profile-pic-wrapper">
@@ -100,10 +114,6 @@
       </div>
     </div>
 
-    
-  
-
-
     <div id="post-holder">
       <div class="loading-screen">
         <div class="loading">
@@ -112,7 +122,7 @@
           <img src="icons/android-icon-192x192.png" alt="">
         </div>
       </div>
-  </div>
+    </div>
 
   <!-- <script src="js/firebase-auth.js"></script> -->
   <script src="js/app.js"></script>

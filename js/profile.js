@@ -4,14 +4,20 @@ const postHolder = document.getElementById('post-holder');
 const uploadButtonContainer = document.getElementById('upload-profile-pic');
 const profilePic = document.getElementById('profile-pic');
 const progressBar = document.getElementById('progress-bar');
-let uploadField;
-
+const optionsMenuButton = document.getElementById('options-menu-button');
+const closeOptionsButton = document.getElementById('close-menu');
+const optionsMenu = document.getElementById('options-menu');
+const changeProfilePic = document.getElementById('change-profile-pic-button');
+// const changeUsername = document.getElementById('change-username-input');
+const uploadField = document.getElementById('file');
 const Posts = new PostManager();
-
-
-//
 let isUserProfilePage = false;
 
+
+uploadField.addEventListener('change', uploadProfilePic);
+optionsMenuButton.addEventListener('click', openOptionsMenu);
+closeOptionsButton.addEventListener('click', closeOptionsMenu);
+// changeUsername.addEventListener('keyup', onChangeUsername);
 
 function uploadProfilePic(e) {
   const file = this.files[0];
@@ -30,29 +36,48 @@ function uploadProfilePic(e) {
     },
     function complete() {
       console.log('Upload complete');
+      closeOptionsMenu();
       progressBar.classList.remove('bar-visible');
       getProfilePic(currentUser.uid, profilePic);
-      uploadButtonContainer.innerHTML = "Done!";
-      setTimeout(() => {
-        uploadButtonContainer.innerHTML = `
-        <input type="file" name="file" id="file" class="inputfile" />
-        <label for="file"><i class="fa fa-upload" aria-hidden="true"></i> Upload Profile Pic</label>
-      <progress class="progress-bar" value="0" max="100" id="progress-bar">0%</progress>   `;
-      }, 2000);
     }
   )
 }
 
-function placeUploadButton() {
-  const uploadInput = `
-    <input type="file" name="file" id="file" class="inputfile" />
-    <label for="file"><i class="fa fa-upload" aria-hidden="true"></i></label>`;
+// function onChangeUsername(e) {
+//   console.log(this.value);
+//   if (e.keyCode === 13) {
+//     e.preventDefault();
+//     if (confirm(`Change username to ${this.value}?`)) {
+//       const username = this.value
+//       firebase.auth().onAuthStateChanged(function(user) {
+        
+//         user.updateProfile({
+//           displayName: username
+//         }).then((e) => {
+//           console.log('changed');
+//           this.value = 'Username changed!'
+//           this.blur();
+//           console.log(user.displayName);
+//         }, (err) => {
+//           console.log(err);
+//         })
+//       });
+//     }
+//   }
+// }
+
+function placeOptionsButton() {
   if (getParameterByName('user') === currentUser.uid || !getParameterByName('user')) {
-    uploadButtonContainer.innerHTML = uploadInput;
-    uploadField = document.getElementById('file');
-    uploadField.addEventListener('change', uploadProfilePic);
+    optionsMenuButton.innerHTML = `<i class="fa fa-cog" aria-hidden="true"></i>`;
   } 
-  
+}
+
+function openOptionsMenu() {
+  optionsMenu.style.display = 'flex';
+}
+
+function closeOptionsMenu() {
+  optionsMenu.style.display = 'none';
 }
 
 function getParameterByName(name, url) {
@@ -108,7 +133,8 @@ firebase.auth().onAuthStateChanged(function(user) {
   console.log(isUserProfilePage);
 
   if (isUserProfilePage === true) {
-    placeUploadButton();
+    //placeUploadButton();
+    placeOptionsButton();
   }
   
 });

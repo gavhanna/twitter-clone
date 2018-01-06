@@ -295,16 +295,61 @@ nav {
   }
 }
 
-.upload-profile-pic {
+.options-menu-button {
   position: absolute;
-  bottom: 0;
-  left: 0;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  bottom: 5px;
+  left: 5px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  &:hover {
+    background: white;
+    color: $main-color;
+  }
 }
+
+.options-menu {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin-top: -150px;
+  margin-left: -150px;
+  z-index: 10;
+  background: white;
+  width: 300px;
+  height: 300px;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  .options-wrapper {
+    margin: 20% 0;
+    > p {
+      cursor: pointer;
+    }
+  }
+}
+
+.close-menu {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: grey;
+  cursor: pointer;
+}
+
 .progress-bar {
   position: absolute;
   display: none;
   bottom: 0;
   left: 0;
+  width: 100%;
   &.bar-visible {
     display: block;
   }
@@ -401,6 +446,15 @@ nav {
   }
 } 
 
+.change-username-input {
+  border: none;
+  margin: 10px;
+  color: white;
+  text-align: center;
+  &::placeholder {
+    color: white;
+  }
+}
 
 // profile pic upload input
 .inputfile {
@@ -412,7 +466,7 @@ nav {
   z-index: -1;
 }
 
-.inputfile + label {
+.inputfile + label, .change-username-input {
   color: white;
   background-color: $main-color;
   display: inline-block;
